@@ -1,7 +1,6 @@
 foreach ($profile in netsh wlan show profiles | Select-String -Pattern "All User Profile" | ForEach-Object {($_ -split ":")[1].Trim()}) {
     $keyInfo = netsh wlan show profile name=$profile key=clear | Select-String -Pattern "Key Content"
     if ($keyInfo) {
-        # Extract the Key Content
         $key = ($keyInfo -split ":")[1].Trim()
         Write-Host "SSID: $profile"
         Write-Host "Key: $key"
